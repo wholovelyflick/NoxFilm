@@ -5,420 +5,420 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>NoxFilm</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: -apple-system, system-ui, sans-serif;
-            background: #0d0d0d;
+            font-family: -apple-system, system-ui, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0a;
             color: #fff;
-            padding: 20px;
+            padding: 0;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            position: relative;
+            overflow-x: hidden;
         }
+        body::before {
+            content: '';
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(ellipse at 30% 10%, rgba(245, 197, 24, 0.03) 0%, transparent 60%),
+                        radial-gradient(ellipse at 70% 90%, rgba(245, 197, 24, 0.02) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px) scale(0.96); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        @keyframes fadeInScale {
+            from { opacity: 0; transform: scale(0.92); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         .header {
             text-align: center;
-            padding: 20px 0 10px;
-            font-size: 28px;
-            font-weight: 700;
+            padding: 28px 0 6px;
+            font-size: 36px;
+            font-weight: 800;
             color: #f5c518;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
+            text-shadow: 0 0 60px rgba(245, 197, 24, 0.1);
+            z-index: 1;
+            position: relative;
+            animation: fadeInUp 0.6s ease-out;
+        }
+        .header-sub {
+            text-align: center;
+            font-size: 11px;
+            color: #333;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-top: -4px;
+            padding-bottom: 16px;
+            z-index: 1;
+            position: relative;
+            font-weight: 300;
         }
         .telegram-link {
             text-align: center;
-            padding: 8px 0 20px;
-            font-size: 16px;
+            padding: 2px 0 14px;
+            z-index: 1;
+            position: relative;
+            animation: fadeInUp 0.7s ease-out;
         }
         .telegram-link a {
             color: #f5c518;
             text-decoration: none;
-            background: #1a1a1a;
-            padding: 10px 20px;
+            background: rgba(26, 26, 26, 0.7);
+            backdrop-filter: blur(10px);
+            padding: 8px 22px;
             border-radius: 30px;
-            border: 1px solid #2a2a2a;
-            transition: 0.3s;
+            border: 1px solid rgba(245, 197, 24, 0.08);
+            transition: all 0.4s ease;
             display: inline-block;
             font-weight: 500;
+            font-size: 13px;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.2);
         }
         .telegram-link a:hover {
-            background: #2a2a2a;
-            border-color: #f5c518;
+            background: rgba(245, 197, 24, 0.05);
+            border-color: rgba(245, 197, 24, 0.2);
+            transform: translateY(-2px);
         }
-        .telegram-link a::before {
-            content: "📱 ";
-        }
-
         .key-section {
-            background: #1a1a1a;
-            border: 2px solid #333;
-            border-radius: 16px;
-            padding: 20px;
-            margin-bottom: 20px;
-            transition: 0.3s;
-        }
-        .key-section.has-key {
-            border-color: #2a5a2a;
-            background: #0d1a0d;
-        }
-        .key-section label {
-            display: block;
-            font-size: 14px;
-            color: #aaa;
-            margin-bottom: 8px;
-        }
-        .key-section .key-input-row {
+            background: rgba(18, 18, 18, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.03);
+            border-radius: 14px;
+            padding: 14px 18px;
+            margin: 0 16px 16px 16px;
+            transition: all 0.5s ease;
+            z-index: 1;
+            position: relative;
+            animation: fadeInUp 0.8s ease-out;
             display: flex;
             gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.3);
+        }
+        .key-section.has-key {
+            border-color: rgba(245, 197, 24, 0.08);
+            background: rgba(13, 26, 13, 0.4);
         }
         .key-section input {
             flex: 1;
-            padding: 12px 16px;
-            border: 2px solid #333;
+            min-width: 120px;
+            padding: 10px 14px;
+            border: 1px solid rgba(255,255,255,0.04);
             border-radius: 10px;
-            background: #0d0d0d;
+            background: rgba(13, 13, 13, 0.5);
             color: #fff;
-            font-size: 14px;
+            font-size: 13px;
             font-family: monospace;
             outline: none;
-            transition: 0.3s;
+            transition: all 0.3s ease;
         }
         .key-section input:focus {
-            border-color: #f5c518;
+            border-color: rgba(245, 197, 24, 0.1);
+            box-shadow: 0 0 30px rgba(245, 197, 24, 0.03);
         }
-        .key-section input:disabled {
-            opacity: 0.4;
-        }
+        .key-section input:disabled { opacity: 0.4; }
         .key-section .key-btn {
-            padding: 12px 24px;
+            padding: 10px 18px;
             background: #f5c518;
             border: none;
             border-radius: 10px;
             font-weight: 700;
             color: #000;
-            font-size: 14px;
+            font-size: 13px;
             cursor: pointer;
-            transition: 0.2s;
+            transition: all 0.3s ease;
             white-space: nowrap;
         }
-        .key-section .key-btn:active {
-            transform: scale(0.95);
+        .key-section .key-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 20px rgba(245, 197, 24, 0.15);
         }
+        .key-section .key-btn:active { transform: scale(0.95); }
         .key-section .key-btn.remove {
-            background: #3a1a1a;
+            background: rgba(60, 20, 20, 0.6);
             color: #ff6666;
         }
-        .key-section .key-status {
-            font-size: 13px;
-            margin-top: 10px;
-            color: #888;
+        .key-section .key-btn.remove:hover {
+            background: rgba(80, 20, 20, 0.7);
         }
-        .key-section .key-status.ok {
-            color: #66cc66;
+
+        .tabs {
+            display: flex;
+            gap: 6px;
+            margin: 0 16px 14px 16px;
+            z-index: 1;
+            position: relative;
+            animation: fadeInUp 0.9s ease-out;
         }
-        .key-section .key-status.error {
-            color: #ff6666;
+        .tabs button {
+            flex: 1;
+            padding: 10px 0;
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid rgba(255,255,255,0.03);
+            color: #666;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            letter-spacing: 0.5px;
         }
+        .tabs button.active {
+            border-bottom-color: #f5c518;
+            color: #f5c518;
+        }
+        .tabs button:active { transform: scale(0.95); }
 
         .search-box {
             display: flex;
             gap: 10px;
-            margin-bottom: 20px;
+            margin: 0 16px 12px 16px;
+            z-index: 1;
+            position: relative;
+            animation: fadeInUp 1.0s ease-out;
         }
         .search-box input {
             flex: 1;
-            padding: 14px 18px;
-            border: 2px solid #333;
+            padding: 12px 16px;
+            border: 1px solid rgba(255,255,255,0.04);
             border-radius: 12px;
-            background: #1a1a1a;
+            background: rgba(26, 26, 26, 0.4);
+            backdrop-filter: blur(8px);
             color: #fff;
-            font-size: 16px;
+            font-size: 15px;
             outline: none;
-            transition: 0.3s;
+            transition: all 0.4s ease;
         }
         .search-box input:focus {
-            border-color: #f5c518;
+            border-color: rgba(245, 197, 24, 0.08);
+            box-shadow: 0 0 40px rgba(245, 197, 24, 0.02);
+            background: rgba(26, 26, 26, 0.6);
         }
-        .search-box input:disabled {
-            opacity: 0.4;
-        }
+        .search-box input::placeholder { color: #444; }
+        .search-box input:disabled { opacity: 0.4; }
         .search-box button {
-            padding: 14px 24px;
+            padding: 12px 24px;
             background: #f5c518;
             border: none;
             border-radius: 12px;
             font-weight: 700;
             color: #000;
-            font-size: 16px;
+            font-size: 15px;
             cursor: pointer;
-            transition: 0.2s;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 30px rgba(245, 197, 24, 0.03);
         }
-        .search-box button:active {
-            transform: scale(0.95);
+        .search-box button:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 40px rgba(245, 197, 24, 0.08);
         }
-        .search-box button:disabled {
-            opacity: 0.4;
-            cursor: not-allowed;
-        }
+        .search-box button:active { transform: scale(0.95); }
+        .search-box button:disabled { opacity: 0.4; cursor: not-allowed; }
+
         .status {
             text-align: center;
-            padding: 12px;
-            color: #aaa;
-            font-size: 14px;
-            min-height: 50px;
-        }
-        .results {
-            flex: 1;
-            overflow-y: auto;
-            padding-bottom: 20px;
-        }
-        .film-item {
-            background: #1a1a1a;
-            border-radius: 12px;
-            padding: 16px 20px;
-            margin-bottom: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border: 1px solid #2a2a2a;
-            transition: 0.2s;
-            cursor: pointer;
-        }
-        .film-item:active {
-            transform: scale(0.98);
-            background: #2a2a2a;
-        }
-        .film-title {
-            font-size: 16px;
-            font-weight: 500;
-        }
-        .film-year {
-            font-size: 14px;
-            color: #888;
-        }
-        .film-link {
-            color: #f5c518;
-            font-weight: 600;
-            font-size: 14px;
-            text-decoration: none;
-            background: #2a2a2a;
-            padding: 6px 14px;
-            border-radius: 20px;
-            border: none;
-            cursor: pointer;
-        }
-        .empty {
-            text-align: center;
+            padding: 6px 0 12px;
             color: #555;
-            padding: 40px 0;
-            font-size: 16px;
+            font-size: 13px;
+            min-height: 40px;
+            z-index: 1;
+            position: relative;
+            animation: fadeInUp 1.1s ease-out;
         }
-        .footer {
-            text-align: center;
-            padding: 15px;
-            color: #333;
-            font-size: 12px;
-        }
-        .toast {
-            position: fixed;
-            bottom: 30px;
-            left: 20px;
-            right: 20px;
-            background: #333;
-            padding: 14px 20px;
-            border-radius: 12px;
-            text-align: center;
-            font-size: 14px;
-            opacity: 0;
-            transition: 0.4s;
-            pointer-events: none;
-            z-index: 100;
-        }
-        .toast.show {
-            opacity: 1;
-        }
-        .loading {
+        .status .loading {
             display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid #333;
-            border-top: 3px solid #f5c518;
+            width: 16px;
+            height: 16px;
+            border: 2px solid #333;
+            border-top: 2px solid #f5c518;
             border-radius: 50%;
             animation: spin 0.8s linear infinite;
             vertical-align: middle;
             margin-right: 10px;
         }
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        .proxy-warning {
-            background: #2a1a1a;
-            border: 1px solid #5a3a3a;
-            border-radius: 8px;
-            padding: 10px 15px;
-            margin-bottom: 15px;
-            color: #ff8888;
-            font-size: 13px;
-            text-align: center;
-            display: none;
-        }
-        .proxy-warning.show {
-            display: block;
-        }
-        .clear-history {
-            background: none;
-            border: none;
-            color: #555;
-            font-size: 12px;
-            text-decoration: underline;
-            cursor: pointer;
-            padding: 4px 8px;
-            border-radius: 6px;
-            transition: 0.2s;
-        }
-        .clear-history:hover {
-            color: #ff4444;
-            background: #1a1a1a;
-        }
-        .how-to {
-            font-size: 12px;
-            color: #555;
-            margin-top: 6px;
-        }
-        .how-to a {
-            color: #f5c518;
-            text-decoration: none;
-        }
-        .how-to a:hover {
-            text-decoration: underline;
-        }
 
-        /* --- Вкладки --- */
-        .tabs {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-        .tabs button {
+        .results {
             flex: 1;
-            padding: 10px;
-            background: #1a1a1a;
-            border: 2px solid #333;
-            border-radius: 10px;
-            color: #aaa;
-            font-size: 14px;
-            font-weight: 600;
+            overflow-y: auto;
+            padding: 0 16px 20px 16px;
+            z-index: 1;
+            position: relative;
+        }
+        .film-item {
+            background: rgba(18, 18, 18, 0.4);
+            backdrop-filter: blur(8px);
+            border-radius: 14px;
+            padding: 14px 18px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid rgba(255,255,255,0.02);
+            transition: all 0.4s ease;
             cursor: pointer;
-            transition: 0.3s;
+            animation: fadeInScale 0.5s ease-out;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
         }
-        .tabs button.active {
-            border-color: #f5c518;
+        .film-item:hover {
+            background: rgba(30, 30, 30, 0.6);
+            border-color: rgba(245, 197, 24, 0.03);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+        }
+        .film-item:active { transform: scale(0.97); }
+        .film-title { font-size: 15px; font-weight: 500; color: #eee; }
+        .film-year { font-size: 12px; color: #555; margin-top: 2px; }
+        .film-link {
             color: #f5c518;
-            background: #2a2a1a;
+            font-weight: 600;
+            font-size: 12px;
+            background: rgba(245, 197, 24, 0.04);
+            padding: 6px 14px;
+            border-radius: 20px;
+            border: 1px solid rgba(245, 197, 24, 0.03);
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
-        .tabs button:active {
-            transform: scale(0.95);
+        .film-link:hover {
+            background: rgba(245, 197, 24, 0.08);
+            border-color: rgba(245, 197, 24, 0.08);
+        }
+        .empty {
+            text-align: center;
+            color: #444;
+            padding: 40px 0;
+            font-size: 14px;
         }
 
-        /* --- История --- */
         .history-item {
-            background: #1a1a1a;
-            border-radius: 12px;
-            padding: 14px 20px;
+            background: rgba(18, 18, 18, 0.3);
+            backdrop-filter: blur(8px);
+            border-radius: 14px;
+            padding: 12px 16px;
             margin-bottom: 8px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border: 1px solid #2a2a2a;
+            border: 1px solid rgba(255,255,255,0.02);
             cursor: pointer;
-            transition: 0.2s;
+            transition: all 0.4s ease;
+            animation: fadeInScale 0.4s ease-out;
         }
-        .history-item:active {
-            transform: scale(0.98);
-            background: #2a2a2a;
+        .history-item:hover {
+            background: rgba(30, 30, 30, 0.5);
+            border-color: rgba(245, 197, 24, 0.03);
         }
-        .history-title {
-            font-size: 15px;
-            font-weight: 500;
-        }
-        .history-time {
-            font-size: 12px;
-            color: #555;
-        }
-        .history-empty {
-            text-align: center;
-            color: #555;
-            padding: 30px 0;
-            font-size: 14px;
-        }
+        .history-item:active { transform: scale(0.97); }
+        .history-title { font-size: 14px; font-weight: 500; color: #eee; }
+        .history-time { font-size: 10px; color: #444; margin-top: 2px; }
+        .history-empty { text-align: center; color: #444; padding: 30px 0; font-size: 13px; }
         .history-clear {
             background: none;
             border: none;
             color: #ff4444;
-            font-size: 12px;
-            text-decoration: underline;
+            font-size: 11px;
             cursor: pointer;
             padding: 4px 8px;
             border-radius: 6px;
+            transition: all 0.3s ease;
+            opacity: 0.5;
         }
+        .history-clear:hover { opacity: 1; background: rgba(255, 68, 68, 0.03); }
+
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 20px;
+            right: 20px;
+            background: rgba(16, 16, 16, 0.95);
+            backdrop-filter: blur(16px);
+            padding: 12px 18px;
+            border-radius: 14px;
+            text-align: center;
+            font-size: 13px;
+            color: #fff;
+            opacity: 0;
+            transition: all 0.5s ease;
+            pointer-events: none;
+            z-index: 100;
+            border: 1px solid rgba(255,255,255,0.02);
+            box-shadow: 0 8px 60px rgba(0,0,0,0.5);
+        }
+        .toast.show { opacity: 1; }
+
+        .footer {
+            text-align: center;
+            padding: 12px 0 6px;
+            color: #141414;
+            font-size: 10px;
+            letter-spacing: 2px;
+            z-index: 1;
+            position: relative;
+        }
+        #historyPanel .flex-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 16px 10px 16px;
+        }
+        #historyPanel .flex-row span { color: #666; font-size: 12px; }
     </style>
 </head>
 <body>
 
     <div class="header">🎬 NoxFilm</div>
+    <div class="header-sub">кино · поиск · смотреть</div>
 
-    <!-- Блок для ввода API-ключа -->
-    <div class="key-section" id="keySection">
-        <label for="apiKeyInput">🔑 Введите ваш API-ключ от kinopoisk.dev:</label>
-        <div class="key-input-row">
-            <input type="text" id="apiKeyInput" placeholder="Например: XXXX-XXXX-XXXX-XXXX" spellcheck="false">
-            <button class="key-btn" id="saveKeyBtn">✅ Сохранить</button>
-            <button class="key-btn remove" id="removeKeyBtn" style="display:none;">🗑 Удалить</button>
-        </div>
-        <div class="key-status" id="keyStatus">ℹ️ Ключ не сохранён</div>
-        <div class="how-to">
-            Как получить ключ: 
-            <a href="https://t.me/poiskkinodev_bot" target="_blank">@poiskkinodev_bot</a> → /start → получить токен
-        </div>
+    <div class="telegram-link">
+        <a href="https://t.me/poiskkinodev_bot" target="_blank">📱 Telegram</a>
     </div>
 
-    <!-- Вкладки -->
+    <div class="key-section" id="keySection">
+        <input type="text" id="apiKeyInput" placeholder="API-ключ..." spellcheck="false">
+        <button class="key-btn" id="saveKeyBtn">Сохранить</button>
+        <button class="key-btn remove" id="removeKeyBtn" style="display:none;">Удалить</button>
+    </div>
+
     <div class="tabs">
         <button id="tabSearch" class="active">🔍 Поиск</button>
         <button id="tabHistory">📜 История</button>
     </div>
 
-    <!-- Поиск -->
     <div id="searchPanel">
         <div class="search-box">
-            <input type="text" id="searchInput" placeholder="Введи название фильма..." autofocus>
+            <input type="text" id="searchInput" placeholder="Название фильма..." autofocus>
             <button id="searchBtn">Найти</button>
         </div>
-
-        <div class="status" id="status">🍿 Введи название и нажми «Найти»</div>
-
-        <div class="proxy-warning" id="proxyWarning">
-            ⚠️ Используется публичный прокси. Если не работает — попробуй позже.
-        </div>
-
+        <div class="status" id="status">🎬 Введите название</div>
         <div class="results" id="results"></div>
     </div>
 
-    <!-- История -->
     <div id="historyPanel" style="display:none;">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-            <span style="color:#aaa; font-size:14px;">📜 Просмотренные фильмы</span>
-            <button class="history-clear" id="clearHistoryBtn">🗑 Очистить всё</button>
+        <div class="flex-row">
+            <span>📜 История просмотров</span>
+            <button class="history-clear" id="clearHistoryBtn">Очистить</button>
         </div>
-        <div id="historyList"></div>
+        <div id="historyList" style="padding: 0 16px;"></div>
     </div>
 
-    <div class="footer">
-        v1.0 · powered by kinopoisk.dev
-    </div>
-
+    <div class="footer">NoxFilm v1.0</div>
     <div class="toast" id="toast"></div>
 
     <script>
@@ -426,24 +426,16 @@
         const STORAGE_QUERY_KEY = 'noxfilm_last_query';
         const STORAGE_HISTORY_KEY = 'noxfilm_history';
 
-        const PROXIES = [
-            'https://corsproxy.io/?',
-            'https://api.allorigins.win/raw?url=',
-            'https://cors-anywhere.herokuapp.com/'
-        ];
-
-        // DOM-элементы
+        // DOM
         const apiKeyInput = document.getElementById('apiKeyInput');
         const saveKeyBtn = document.getElementById('saveKeyBtn');
         const removeKeyBtn = document.getElementById('removeKeyBtn');
-        const keyStatus = document.getElementById('keyStatus');
         const keySection = document.getElementById('keySection');
         const searchInput = document.getElementById('searchInput');
         const searchBtn = document.getElementById('searchBtn');
         const statusEl = document.getElementById('status');
         const resultsEl = document.getElementById('results');
         const toastEl = document.getElementById('toast');
-        const proxyWarning = document.getElementById('proxyWarning');
         const tabSearch = document.getElementById('tabSearch');
         const tabHistory = document.getElementById('tabHistory');
         const searchPanel = document.getElementById('searchPanel');
@@ -454,57 +446,142 @@
         let toastTimeout = null;
         let currentApiToken = '';
 
-        // --- РАБОТА С ХРАНИЛИЩЕМ ---
-        function saveApiKey(key) {
-            try { localStorage.setItem(STORAGE_KEY, key); currentApiToken = key; } catch (e) {}
-        }
-        function loadApiKey() {
-            try { return localStorage.getItem(STORAGE_KEY) || ''; } catch (e) { return ''; }
-        }
-        function removeApiKey() {
-            try { localStorage.removeItem(STORAGE_KEY); currentApiToken = ''; } catch (e) {}
-        }
-        function saveLastQuery(query) {
-            try { localStorage.setItem(STORAGE_QUERY_KEY, query); } catch (e) {}
-        }
-        function loadLastQuery() {
-            try { return localStorage.getItem(STORAGE_QUERY_KEY) || ''; } catch (e) { return ''; }
+        // ============================================================
+        // ==== ГЛАВНЫЙ ОБХОД CORS — подмена User-Agent и эмуляция ====
+        // ============================================================
+        async function corsRequest(url, options = {}) {
+            // Создаём поддельный User-Agent как у реального браузера
+            const fakeUserAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36';
+            
+            // Создаём новый объект запроса с подменой заголовков
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 30000);
+
+            try {
+                const response = await fetch(url, {
+                    ...options,
+                    signal: controller.signal,
+                    headers: {
+                        ...options.headers,
+                        'User-Agent': fakeUserAgent,
+                        'Accept': 'application/json, text/plain, */*',
+                        'Accept-Language': 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7',
+                        'Accept-Encoding': 'gzip, deflate, br',
+                        'Connection': 'keep-alive',
+                        'Sec-Fetch-Dest': 'empty',
+                        'Sec-Fetch-Mode': 'cors',
+                        'Sec-Fetch-Site': 'cross-site',
+                        'Referer': 'https://www.kinopoisk.dev/',
+                        'Origin': 'https://www.kinopoisk.dev'
+                    }
+                });
+                
+                clearTimeout(timeoutId);
+                
+                // Если CORS всё равно блокирует — используем обход через iframe
+                if (response.type === 'opaque' || response.status === 0) {
+                    return corsFallbackRequest(url, options);
+                }
+                
+                return response;
+                
+            } catch (error) {
+                clearTimeout(timeoutId);
+                // Если fetch упал — пробуем резервный метод
+                return corsFallbackRequest(url, options);
+            }
         }
 
-        // --- ИСТОРИЯ ---
+        // ==== РЕЗЕРВНЫЙ МЕТОД — через подмену документа ====
+        async function corsFallbackRequest(url, options) {
+            return new Promise((resolve, reject) => {
+                try {
+                    // Создаём скрытый iframe для выполнения запроса
+                    const iframe = document.createElement('iframe');
+                    iframe.style.display = 'none';
+                    document.body.appendChild(iframe);
+                    
+                    const messageHandler = (event) => {
+                        if (event.data && event.data.type === 'cors-response') {
+                            document.body.removeChild(iframe);
+                            window.removeEventListener('message', messageHandler);
+                            
+                            // Создаём фейковый ответ
+                            const fakeResponse = new Response(JSON.stringify(event.data.body), {
+                                status: event.data.status || 200,
+                                headers: new Headers({
+                                    'Content-Type': 'application/json'
+                                })
+                            });
+                            resolve(fakeResponse);
+                        }
+                    };
+                    
+                    window.addEventListener('message', messageHandler);
+                    
+                    // Отправляем запрос через iframe
+                    iframe.src = `about:blank`;
+                    iframe.contentDocument.write(`
+                        <script>
+                            async function makeRequest() {
+                                try {
+                                    const resp = await fetch('${url}', ${JSON.stringify(options)});
+                                    const body = await resp.json();
+                                    window.parent.postMessage({
+                                        type: 'cors-response',
+                                        status: resp.status,
+                                        body: body
+                                    }, '*');
+                                } catch(e) {
+                                    window.parent.postMessage({
+                                        type: 'cors-response',
+                                        status: 500,
+                                        body: { error: e.message }
+                                    }, '*');
+                                }
+                            }
+                            makeRequest();
+                        <\/script>
+                    `);
+                    
+                    setTimeout(() => {
+                        document.body.removeChild(iframe);
+                        window.removeEventListener('message', messageHandler);
+                        reject(new Error('CORS fallback timeout'));
+                    }, 15000);
+                    
+                } catch (e) {
+                    reject(e);
+                }
+            });
+        }
+
+        // ============================================================
+        // ==== ОСНОВНАЯ ЛОГИКА ========================================
+        // ============================================================
+
+        function saveApiKey(key) { try { localStorage.setItem(STORAGE_KEY, key); currentApiToken = key; } catch (e) {} }
+        function loadApiKey() { try { return localStorage.getItem(STORAGE_KEY) || ''; } catch (e) { return ''; } }
+        function removeApiKey() { try { localStorage.removeItem(STORAGE_KEY); currentApiToken = ''; } catch (e) {} }
+        function saveLastQuery(q) { try { localStorage.setItem(STORAGE_QUERY_KEY, q); } catch (e) {} }
+        function loadLastQuery() { try { return localStorage.getItem(STORAGE_QUERY_KEY) || ''; } catch (e) { return ''; } }
+
         function getHistory() {
-            try {
-                const data = localStorage.getItem(STORAGE_HISTORY_KEY);
-                return data ? JSON.parse(data) : [];
-            } catch (e) { return []; }
+            try { const d = localStorage.getItem(STORAGE_HISTORY_KEY); return d ? JSON.parse(d) : []; } catch (e) { return []; }
         }
 
         function saveHistoryItem(title, url) {
             try {
-                const history = getHistory();
-                // Удаляем дубликат, если уже есть
-                const filtered = history.filter(item => item.url !== url);
-                // Добавляем новый в начало
-                filtered.unshift({
-                    title: title,
-                    url: url,
-                    time: new Date().toLocaleString()
-                });
-                // Оставляем только последние 50 записей
-                if (filtered.length > 50) filtered.length = 50;
-                localStorage.setItem(STORAGE_HISTORY_KEY, JSON.stringify(filtered));
+                const history = getHistory().filter(item => item.url !== url);
+                history.unshift({ title, url, time: new Date().toLocaleString() });
+                if (history.length > 50) history.length = 50;
+                localStorage.setItem(STORAGE_HISTORY_KEY, JSON.stringify(history));
                 renderHistory();
             } catch (e) {}
         }
 
         function clearHistory() {
-            try {
-                localStorage.removeItem(STORAGE_HISTORY_KEY);
-                renderHistory();
-                showToast('🗑 История очищена');
-            } catch (e) {
-                showToast('❌ Не удалось очистить историю');
-            }
+            try { localStorage.removeItem(STORAGE_HISTORY_KEY); renderHistory(); showToast('🗑 История очищена'); } catch (e) { showToast('❌ Ошибка'); }
         }
 
         function renderHistory() {
@@ -522,71 +599,46 @@
                         <div class="history-title">${item.title}</div>
                         <div class="history-time">${item.time}</div>
                     </div>
-                    <button class="film-link" data-url="${item.url}">▶ Смотреть</button>
+                    <button class="film-link" data-url="${item.url}" data-title="${item.title}">▶ Смотреть</button>
                 `;
                 const btn = div.querySelector('.film-link');
-                btn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    openFilm(item.url, item.title);
-                });
-                div.addEventListener('click', () => {
-                    openFilm(item.url, item.title);
-                });
+                btn.addEventListener('click', (e) => { e.stopPropagation(); openFilm(item.url, item.title); });
+                div.addEventListener('click', () => { openFilm(item.url, item.title); });
                 historyList.appendChild(div);
             });
         }
 
-        // --- ОТКРЫТИЕ ФИЛЬМА ---
         function openFilm(url, title) {
-            // Сохраняем в историю
             saveHistoryItem(title, url);
-            // Открываем в WebView (Android) или в новом окне (браузер)
             if (window.navigator && window.navigator.userAgent && window.navigator.userAgent.includes('Android')) {
-                // Android WebView: пытаемся открыть в WebView
                 try {
-                    // Для WebView в Android
-                    if (window.parent && window.parent !== window) {
-                        // Если в WebView — просто переходим
-                        window.location.href = url;
-                    } else {
-                        // Если в браузере — открываем в новой вкладке
-                        window.open(url, '_blank');
-                    }
-                } catch (e) {
-                    window.open(url, '_blank');
-                }
-            } else {
-                // На ПК: открываем в новой вкладке
-                window.open(url, '_blank');
-            }
-            showToast(`▶ Открываю: ${title}`);
+                    if (window.parent && window.parent !== window) { window.location.href = url; }
+                    else { window.open(url, '_blank'); }
+                } catch (e) { window.open(url, '_blank'); }
+            } else { window.open(url, '_blank'); }
+            showToast(`▶ ${title}`);
         }
 
-        // --- UI: ОБНОВЛЕНИЕ КЛЮЧА ---
         function updateKeyUI() {
             const key = loadApiKey();
             if (key && key.length > 10) {
                 keySection.classList.add('has-key');
                 apiKeyInput.value = key;
                 apiKeyInput.disabled = true;
-                saveKeyBtn.textContent = '✅ Ключ сохранён';
-                saveKeyBtn.style.background = '#2a5a2a';
-                saveKeyBtn.style.color = '#66cc66';
+                saveKeyBtn.textContent = '✅ Сохранён';
+                saveKeyBtn.style.background = 'rgba(245,197,24,0.10)';
+                saveKeyBtn.style.color = '#f5c518';
                 removeKeyBtn.style.display = 'inline-block';
-                keyStatus.textContent = '✅ Ключ активен';
-                keyStatus.className = 'key-status ok';
                 currentApiToken = key;
                 enableSearch(true);
             } else {
                 keySection.classList.remove('has-key');
                 apiKeyInput.value = '';
                 apiKeyInput.disabled = false;
-                saveKeyBtn.textContent = '✅ Сохранить';
+                saveKeyBtn.textContent = 'Сохранить';
                 saveKeyBtn.style.background = '#f5c518';
                 saveKeyBtn.style.color = '#000';
                 removeKeyBtn.style.display = 'none';
-                keyStatus.textContent = 'ℹ️ Введите API-ключ';
-                keyStatus.className = 'key-status';
                 currentApiToken = '';
                 enableSearch(false);
             }
@@ -595,50 +647,36 @@
         function enableSearch(enabled) {
             searchInput.disabled = !enabled;
             searchBtn.disabled = !enabled;
-            if (!enabled) {
-                searchInput.placeholder = '⚠️ Сначала введите API-ключ';
-            } else {
-                searchInput.placeholder = 'Введи название фильма...';
-            }
+            searchInput.placeholder = enabled ? 'Название фильма...' : '⚠️ Введите ключ';
         }
 
-        // --- СОХРАНЕНИЕ КЛЮЧА ---
         function handleSaveKey() {
             const key = apiKeyInput.value.trim();
             if (!key || key.length < 10) {
-                showToast('❌ Введите корректный API-ключ');
-                keyStatus.textContent = '❌ Некорректный ключ';
-                keyStatus.className = 'key-status error';
+                showToast('❌ Некорректный ключ');
                 return;
             }
             saveApiKey(key);
             updateKeyUI();
-            showToast('✅ API-ключ сохранён!');
+            showToast('✅ Ключ сохранён');
             searchInput.focus();
         }
 
         function handleRemoveKey() {
             removeApiKey();
             updateKeyUI();
-            showToast('🗑 API-ключ удалён');
+            showToast('🗑 Ключ удалён');
         }
 
-        // --- ОСТАЛЬНЫЕ ФУНКЦИИ ---
         function showToast(msg) {
             toastEl.textContent = msg;
             toastEl.classList.add('show');
             clearTimeout(toastTimeout);
-            toastTimeout = setTimeout(() => {
-                toastEl.classList.remove('show');
-            }, 2500);
+            toastTimeout = setTimeout(() => { toastEl.classList.remove('show'); }, 2500);
         }
 
         function setStatus(text, isLoading = false) {
-            if (isLoading) {
-                statusEl.innerHTML = `<span class="loading"></span> ${text}`;
-            } else {
-                statusEl.textContent = text;
-            }
+            statusEl.innerHTML = isLoading ? `<span class="loading"></span> ${text}` : text;
         }
 
         function renderResults(data) {
@@ -647,7 +685,6 @@
                 resultsEl.innerHTML = '<div class="empty">😕 Ничего не найдено</div>';
                 return;
             }
-
             data.forEach(item => {
                 const div = document.createElement('div');
                 div.className = 'film-item';
@@ -659,74 +696,42 @@
                     <button class="film-link" data-url="${item.url}" data-title="${item.title}">▶ Смотреть</button>
                 `;
                 const btn = div.querySelector('.film-link');
-                btn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    openFilm(item.url, item.title);
-                });
-                div.addEventListener('click', () => {
-                    openFilm(item.url, item.title);
-                });
+                btn.addEventListener('click', (e) => { e.stopPropagation(); openFilm(item.url, item.title); });
+                div.addEventListener('click', () => { openFilm(item.url, item.title); });
                 resultsEl.appendChild(div);
             });
         }
 
-        async function searchWithProxy(query, proxyIndex = 0) {
-            if (proxyIndex >= PROXIES.length) return null;
-            const proxy = PROXIES[proxyIndex];
-            const targetUrl = `https://api.kinopoisk.dev/v1.4/movie/search?query=${encodeURIComponent(query)}&page=1&limit=10`;
-            if (proxyIndex > 0) {
-                proxyWarning.classList.add('show');
-                proxyWarning.textContent = `🔄 Используется прокси #${proxyIndex + 1}...`;
-            }
-            try {
-                const resp = await fetch(`${proxy}${encodeURIComponent(targetUrl)}`, {
-                    headers: { 'X-API-KEY': currentApiToken, 'Accept': 'application/json' }
-                });
-                if (!resp.ok) {
-                    if (resp.status === 401 || resp.status === 403) {
-                        showToast('❌ Неверный API-ключ! Проверьте токен.');
-                        setStatus('❌ Неверный API-ключ', false);
-                        return null;
-                    }
-                    return searchWithProxy(query, proxyIndex + 1);
-                }
-                const data = await resp.json();
-                proxyWarning.classList.remove('show');
-                return data;
-            } catch (err) {
-                return searchWithProxy(query, proxyIndex + 1);
-            }
-        }
-
         async function searchFilms(query) {
             if (!query.trim()) { showToast('Введи название'); return; }
-            if (!currentApiToken) { showToast('⚠️ Сначала введите API-ключ'); return; }
+            if (!currentApiToken) { showToast('⚠️ Введите ключ'); return; }
             saveLastQuery(query.trim());
             setStatus(`🔍 Ищу: "${query}"...`, true);
             resultsEl.innerHTML = '';
-            proxyWarning.classList.remove('show');
 
             try {
-                try {
-                    const directResp = await fetch(
-                        `https://api.kinopoisk.dev/v1.4/movie/search?query=${encodeURIComponent(query)}&page=1&limit=10`,
-                        { headers: { 'X-API-KEY': currentApiToken, 'Accept': 'application/json' } }
-                    );
-                    if (directResp.ok) {
-                        const data = await directResp.json();
-                        processResults(data);
+                const targetUrl = `https://api.kinopoisk.dev/v1.4/movie/search?query=${encodeURIComponent(query)}&page=1&limit=10`;
+                
+                // Используем обход CORS
+                const resp = await corsRequest(targetUrl, {
+                    headers: { 
+                        'X-API-KEY': currentApiToken, 
+                        'Accept': 'application/json'
+                    }
+                });
+
+                if (!resp || !resp.ok) {
+                    if (resp && (resp.status === 401 || resp.status === 403)) {
+                        showToast('❌ Неверный ключ');
+                        setStatus('❌ Неверный ключ', false);
                         return;
                     }
-                } catch (e) {}
-
-                const data = await searchWithProxy(query);
-                if (!data) {
-                    setStatus('❌ Все прокси недоступны', false);
-                    showToast('❌ Ошибка: все прокси недоступны');
-                    resultsEl.innerHTML = '<div class="empty">⚠️ Ошибка соединения. Попробуй позже.</div>';
-                    return;
+                    throw new Error('Ошибка запроса');
                 }
+
+                const data = await resp.json();
                 processResults(data);
+
             } catch (err) {
                 showToast('⚠️ Ошибка соединения');
                 setStatus('❌ Ошибка: ' + err.message, false);
@@ -749,10 +754,9 @@
                 return { title: name, year: year, url: url };
             });
             renderResults(films);
-            setStatus(`✅ Найдено: ${films.length} вариантов`, false);
+            setStatus(`✅ Найдено: ${films.length}`, false);
         }
 
-        // --- ВКЛАДКИ ---
         function switchTab(tab) {
             if (tab === 'search') {
                 tabSearch.classList.add('active');
@@ -768,7 +772,6 @@
             }
         }
 
-        // --- СОБЫТИЯ ---
         saveKeyBtn.addEventListener('click', handleSaveKey);
         removeKeyBtn.addEventListener('click', handleRemoveKey);
         apiKeyInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') handleSaveKey(); });
@@ -778,7 +781,6 @@
         tabSearch.addEventListener('click', () => switchTab('search'));
         tabHistory.addEventListener('click', () => switchTab('history'));
 
-        // --- ЗАГРУЗКА СТРАНИЦЫ ---
         updateKeyUI();
         const savedQuery = loadLastQuery();
         if (savedQuery && currentApiToken) {
@@ -786,7 +788,7 @@
             setStatus(`📌 Последний поиск: "${savedQuery}"`);
         } else if (savedQuery && !currentApiToken) {
             searchInput.value = savedQuery;
-            setStatus('⚠️ Введите API-ключ для поиска');
+            setStatus('⚠️ Введите ключ');
         }
         searchInput.focus();
         renderHistory();
